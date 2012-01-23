@@ -5,7 +5,7 @@ class FootballMatchesController < ApplicationController
   layout "frontend"
 
   def index
-    @tour = 18
+    @tour = 19
     @league = League.first(:conditions => {:country => 'DEU'})
     @matches = FootballMatch.find(:all, :conditions => { :tour => @tour, :league => @league.id})
   end
@@ -15,7 +15,7 @@ class FootballMatchesController < ApplicationController
     @matche = FootballMatch.find_by_id params[:id]
     @team1 = FootballClub.find_by_id @matche.home_team
     @team2 = FootballClub.find_by_id @matche.quest_team
-    @tour = 18
+    @tour = 19
     
     @will_hill = Bookmaker.first(:conditions => {:name => 'WillHill'})
     @bet_365 = Bookmaker.first(:conditions => {:name => 'Bet365'})
@@ -25,10 +25,14 @@ class FootballMatchesController < ApplicationController
     @social2 = SocialCommunication.first(:conditions => {:club_id => @team2.id})
     
     @rss1 = nil
-    @rss1 = RSS::Parser.parse(open(@social1.rss).read, false) unless @social1.rss.nil?
+    unless @social1.rss.nil?
+        @rss1 = RSS::Parser.parse(open(@social1.rss).read, false) rescue nil
+    end
     
     @rss2 = nil
-    @rss2 = RSS::Parser.parse(open(@social2.rss).read, false) unless @social2.rss.nil?
+    unless @social2.rss.nil?
+      @rss2 = RSS::Parser.parse(open(@social2.rss).read, false) rescue nil
+    end
     
     barometer = Barometer.new(@team1.location)
     @weather = barometer.measure
