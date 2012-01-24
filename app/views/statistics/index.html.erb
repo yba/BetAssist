@@ -1,12 +1,19 @@
 <div id="statistic">
   <h1><%= @league.name %></h1>
+  <h2>Summary statistics</h2>
+  <div class="sum_stat_row">Match recoomended matches score: <b>3/4</b>(75%)</div>
+  <div class="sum_stat_row">Match recoomended matches result: <b>3/4</b>(75%)</div>
+  <div class="sum_stat_row">Match matches score: <b>5/32</b>(15.63%)</div>
+  <div class="sum_stat_row">Match matches result: <b>20/32</b>(62.5%)</div>
+  <br />
+  <h2>Detailed statistics</h2>
   <h2>Previous <%= @tour4 %> tour</h2>
   <% @matches4.each do |matche|%>
     <% @team1 = FootballClub.find_by_id matche.home_team %>
     <% @team2 = FootballClub.find_by_id matche.quest_team %>
     <h3><b class="black"><%= @team1.name %> - <%= @team2.name %> <%= matche.home_goals %> : <%= matche.quest_goals %></b></h3>
     <div id="stat_info">
-      <div class="stat_info_item">
+      <div class="stat_info_item_main">
       <% @prediction = Prediction.first(:conditions => {:game_id => matche.id}) %>
         <% unless @prediction.nil? %>
           <b class="black">Our forecast for the game:</b><br />
@@ -61,7 +68,7 @@
     <% @team2 = FootballClub.find_by_id matche.quest_team %>
     <h3><b class="black"><%= @team1.name %> - <%= @team2.name %> <%= matche.home_goals %> : <%= matche.quest_goals %></b></h3>
     <div id="stat_info">
-      <div class="stat_info_item">
+      <div class="stat_info_item_main">
       <% @prediction = Prediction.first(:conditions => {:game_id => matche.id}) %>
         <% unless @prediction.nil? %>
           <b class="black">Our forecast for the game:</b><br />
@@ -116,7 +123,7 @@
     <% @team2 = FootballClub.find_by_id matche.quest_team %>
     <h3><b class="black"><%= @team1.name %> - <%= @team2.name %> <%= matche.home_goals %> : <%= matche.quest_goals %></b></h3>
     <div id="stat_info">
-      <div class="stat_info_item">
+      <div class="stat_info_item_main">
       <% @prediction = Prediction.first(:conditions => {:game_id => matche.id}) %>
         <% unless @prediction.nil? %>
           <b class="black">Our forecast for the game:</b><br />
@@ -171,7 +178,7 @@
     <% @team2 = FootballClub.find_by_id matche.quest_team %>
     <h3><b class="black"><%= @team1.name %> - <%= @team2.name %> <%= matche.home_goals %> : <%= matche.quest_goals %></b></h3>
     <div id="stat_info">
-      <div class="stat_info_item">
+      <div class="stat_info_item_main">
       <% @prediction = Prediction.first(:conditions => {:game_id => matche.id}) %>
         <% unless @prediction.nil? %>
           <b class="black">Our forecast for the game:</b><br />
